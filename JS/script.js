@@ -13,30 +13,22 @@ console.log("Hello, World!");
 //     console.log("Page Not Deleted");
 // }
 
-var a = 1;
-var b = 45;
-a=a+2;
-console.log("The sum of a and b is: " + (a + b));
+// 
 
-console.log(a);
+let a = 10;
+let name = "Ram";
 
- {
-    var a = a+4;
-    console.log(a);
+let q =undefined;
+let z = null;
 
- }
- console.log(a);
+console.log(a, name , q , z);
 
- let c =3;
- console.log(c);
+console.log(typeof a, typeof name , typeof q , typeof z);
 
- {
-    let c = 12;
-    console.log(c);
- }
-console.log(c);
+let user = {
+   name : "Ram",
+   age : 12
+}
 
-const d = 10 ;
+console.log ("Name : "+ user.name +"Age : "+ user.age);
 
-// d = d+10; // cannot change
-console.log(d);
