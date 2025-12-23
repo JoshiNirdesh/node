@@ -11,3 +11,4 @@ let output =document.querySelector(".output");
 input.addEventListener("input",(e)=>{
     output.textContent = e.target.value
 })
+
