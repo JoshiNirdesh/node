@@ -1,4 +1,4 @@
-const http = require ("http");
+const http = require("http");
 const fs = require("fs");
 const queryString = require("querystring");
 
@@ -14,22 +14,22 @@ http.createServer((req,res)=>{
             res.write(data);
             res.end();
         }
-        else if (req.url=="/submit"){
+        if(req.url=="/submit"){
             let dataBody = [];
             req.on("data",(chunk)=>{
                 dataBody.push(chunk);
             })
             req.on("end",()=>{
                 let rowData = Buffer.concat(dataBody).toString();
+                console.log(rowData);
                 let readableData = queryString.parse(rowData);
+                console.log(readableData);
+                let data = `Name : ${readableData.name} and email : ${readableData.email}`
+                fs.writeFileSync("../file/"+readableData.name +".txt",data);
                 res.writeHead(200,{"content-type":"text/html"});
-            res.write(`<h2>Data Submitted</h2>
-                    Name : <p>${readableData.name}</p>
-                `)
-                            res.end();
+                res.end("Submitted")
 
             })
-            
         }
         
     })
