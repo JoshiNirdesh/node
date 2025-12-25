@@ -1,21 +1,22 @@
 import express from "express";
-import path from "path";
 
-const absPath = path.resolve("view");
 const app = express();
-const publicPath = path.resolve("public");
 
-app.use(express.static(publicPath));
+
+function checkRoute(req,res,next){
+    console.log(req.url);
+    next()
+}
+
+app.use(checkRoute);
 
 app.get("/",(req,res)=>{
-    res.sendFile(absPath+"/home.html");
+    res.send("This is the home page");
 })
-
-app.get("/about",(req,res)=>{
-    res.send(absPath+'about.html');
+app.get("/user",(req,res)=>{
+    res.send("This is the User page");
 })
-
-app.get("/login",(req,res)=>{
-    res.send(absPath+'login.html');
+app.get("/products",(req,res)=>{
+    res.send("This is the product page");
 })
-app.listen(4000);
+app.listen(3000);
