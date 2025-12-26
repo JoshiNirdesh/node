@@ -1,20 +1,8 @@
-import express from "express"
-import path from "path"
+import express from 'express'
+import { getUser } from './controllers/userController.js';
 const app = express();
 
-const absPath = path.resolve("view");
-app.use(express.urlencoded({extended:false}))
+app.set("view engine",'ejs');
 
-app.get("/",(req,res)=>{
-    res.send("This is the home page");
-})
-app.get("/login",(req,res)=>{
-    res.sendFile(absPath+"/login.html")
-})
-app.post("/submit",(req,res)=>{
-    console.log(req.body);
-      res.send("Form submitted successfully");
-
-
-})
+app.get("/users",getUser)
 app.listen(4000);
