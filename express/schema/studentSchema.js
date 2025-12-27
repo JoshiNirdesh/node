@@ -1,9 +1,8 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const studentSchema = mongoose.Schema({
+const studentSchema=mongoose.Schema({
     name:String,
     age:Number,
     email:String
-
 })
-export default studentSchema
+export default studentSchema;
