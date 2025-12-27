@@ -14,11 +14,22 @@ app.get("/",async(req,res)=>{
     res.send(studentData);
 })
 app.post("/save",(req,res)=>{
+    const {name,age,email}=req.body;
+    if(!req.body || !name || !age ||!email){
+        res.send({ 
+        message:"data not Stroed",
+        success :false,
+        storedData : null})
+
+        return false
+    }
+    
     
     const studentData = studentModel.create(req.body);
     res.send({
         message:"data Stroed",
-        success :true
+        success :true,
+        storedData : req.body
     })
 })
 app.listen(4000);
