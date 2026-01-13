@@ -12,8 +12,7 @@ app.get("/", (req, res) => {
 })
 connectDb();
 
-app.use("/api/v1/test", require("./routes/testRoutes"));
-app.use("/api/v1/auth",require("./routes/authRoutes"));
+app.use("/api/v1/auth",require("./routes/authRoute"));
 
 const port = process.env.port
 

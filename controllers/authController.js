@@ -1,33 +1,40 @@
+const { default: mongoose } = require("mongoose");
 const userModel = require("../models/userModel")
+const bcrypt = require("bcrypt");
 
 const registerController = async (req, res) => {
     try {
-        const { username, password, email, phone, address } = req.body
-        if (!username || !password || !email || !phone || !address) {
-            res.status(500).send({
+        const { username, email, password, phone, address } = req.body
+
+        if (!username || !email || !password || !phone || !address) {
+            return res.status(500).send({
                 success: false,
                 message: "All fields are required"
             })
         }
         const existingUser = await userModel.findOne({ email });
         if (existingUser) {
-            res.status(500).send({
+            return res.status(500).send({
                 success: false,
-                message: "User Already exist"
+                message: "User Already Exist"
             })
         }
-        const newUser = await userModel.create({ username, email, password, phone, address });
+
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
+        const newUser = await userModel.create({ username, email, password: hashPassword, phone, address });
         res.status(200).send({
             success: true,
             message: "Register Successfully",
             newUser
         })
+
     } catch (error) {
         res.status(500).send({
-            message: false,
-            success: "Register API error",
+            success: false,
+            message: "Register API error",
             error: error.message
         })
     }
 }
-module.exports = { registerController }
+module.exports = registerController

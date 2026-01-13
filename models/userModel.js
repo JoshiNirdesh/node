@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
-
 const userSchema = mongoose.Schema({
     username: {
         type: String,
-        required: [true, "Username required"],
+        required: [true, "Username required"]
     },
     email: {
         type: String,
@@ -17,19 +16,22 @@ const userSchema = mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [true, "Phone number required"]
+        required: [true, "Phone Number required"]
     },
     address: {
-        type: Array
+        type: Array,
     },
     userType: {
         type: String,
-        required: true,
+        required: [true, "UserType required"],
         default: "client",
-        enum: ["client", "admin", "merchant", "driver"]
+        enum: ["client", "admin", "merchant", "driver"],
+    },
+    profile: {
+        type: String,
+        default: "https://cdn-icons-png.freepik.com/512/8608/8608769.png"
     }
-}, { timestamps: true });
+}, { timestamps: true })
 
 const userModel = mongoose.model("user", userSchema);
-
 module.exports = userModel
