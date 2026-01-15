@@ -1,15 +1,20 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../Context/AppContext'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const { username, setUsername, email, setEmail, phone, setPhone, address, setAddress, password, setPassword } = useContext(AppContext);
 
+    const navigate = useNavigate()
     const handleClick = async () => {
         try {
             const data = { username, email, phone, password, address, }
             const res = await axios.post("http://localhost:4000/api/v1/auth/register", data)
             console.log(res.data.message)
+            setEmail("");
+            setPassword("")
+            navigate('/login')
         } catch (error) {
             console.log(error);
         }
