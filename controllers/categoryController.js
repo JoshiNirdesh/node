@@ -66,7 +66,7 @@ const updateCategoryController = async (req, res) => {
                 message: "CategoryId is required"
             })
         }
-        const category = await categoryModel.findByIdAndUpdate( categoryId , { title, imageUrl }, { new: true })
+        const category = await categoryModel.findByIdAndUpdate(categoryId, { title, imageUrl }, { new: true })
         if (!category) {
             return res.status(500).send({
                 success: false,
@@ -85,4 +85,28 @@ const updateCategoryController = async (req, res) => {
         })
     }
 }
-module.exports = { createCategoryController, getAllCategoryController, updateCategoryController }
+
+const deleteCategoryController = async (req, res) => {
+    try {
+        const categoryId = req.params.id;
+
+        if (!categoryId) {
+            return res.status(500).send({
+                success: false,
+                message: "Please provide category id"
+            })
+        }
+        await categoryModel.findByIdAndDelete(categoryId);
+        res.status(500).send({
+            success: true,
+            message: "Deleted Successfully"
+        })
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Delete Category Api error "
+        })
+    }
+}
+
+module.exports = { createCategoryController, getAllCategoryController, updateCategoryController, deleteCategoryController }
