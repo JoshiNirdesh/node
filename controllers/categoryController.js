@@ -49,4 +49,40 @@ const getAllCategoryController = async (req, res) => {
         })
     }
 }
-module.exports = { createCategoryController, getAllCategoryController }
+const updateCategoryController = async (req, res) => {
+    try {
+        const { title, imageUrl } = req.body;
+        if (!title) {
+            return res.status(500).send({
+                success: false,
+                message: "Title is required"
+            })
+        }
+
+        const categoryId = req.params.id;
+        if (!categoryId) {
+            return res.status(500).send({
+                success: false,
+                message: "CategoryId is required"
+            })
+        }
+        const category = await categoryModel.findByIdAndUpdate( categoryId , { title, imageUrl }, { new: true })
+        if (!category) {
+            return res.status(500).send({
+                success: false,
+                message: "Category not found"
+            })
+        }
+        res.status(200).send({
+            success: true,
+            message: "Updated Successfully"
+        })
+    } catch (error) {
+        res.status(500).send({
+            success: false,
+            message: "Update category api error",
+            error: error.message
+        })
+    }
+}
+module.exports = { createCategoryController, getAllCategoryController, updateCategoryController }
