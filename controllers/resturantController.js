@@ -82,4 +82,27 @@ const getResturantController = async (req, res) => {
     }
 
 }
-module.exports = { createResturantController, getAllController, getResturantController }
+const deleteResturantController = async (req, res) => {
+    try {
+        const resturantId = req.params.id
+        if (!resturantId) {
+            return res.status(500).send({
+                success: false,
+                message: "No resturant are available"
+            })
+        }
+        await resturantModel.findByIdAndDelete(resturantId);
+        res.status(500).send({
+            success: true,
+            message: "Deleted Successfully"
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Delete Resturant API error",
+            error
+        })
+    }
+}
+module.exports = { createResturantController, getAllController, getResturantController, deleteResturantController }
